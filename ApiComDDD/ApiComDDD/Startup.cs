@@ -34,6 +34,8 @@ namespace ApiComDDD
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+                //Adicionar chamada Seed
             }
 
             /*app.UseHttpsRedirection();

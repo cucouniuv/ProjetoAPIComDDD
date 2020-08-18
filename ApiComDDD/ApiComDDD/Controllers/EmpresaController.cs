@@ -53,5 +53,42 @@ namespace Api.Application.Controllers
                 nameof(GetEmpresa),
                 new { id = empresa.Id }, empresa);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Empresa empresa)
+        {
+            if (id != empresa.Id)
+            {
+                return BadRequest("Parâmetro id e id do objeto empresa são diferentes.");
+            }
+
+            var emp = await _empresaService.GetByIdAsync(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }
+
+            emp.Nome = empresa.Nome;
+            emp.Cnpj = empresa.Cnpj;
+            emp.DataFundacao = empresa.DataFundacao;
+
+            await _empresaService.UpdateAsync(emp);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var emp = await _empresaService.GetByIdAsync(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }
+
+            await _empresaService.RemoveAsync(emp);
+
+            return NoContent();
+        }
     }
 }
