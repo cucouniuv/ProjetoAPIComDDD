@@ -1,4 +1,6 @@
 using Api.Infra.CrossCutting.IoC;
+using Api.Infra.Data;
+using Api.Infra.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,8 +36,8 @@ namespace ApiComDDD
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
-                //Adicionar chamada Seed
+
+                Api.Infra.Data.Startup.Seed<ContextInMemory>(app);
             }
 
             /*app.UseHttpsRedirection();

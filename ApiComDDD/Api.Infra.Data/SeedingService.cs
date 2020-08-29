@@ -21,21 +21,8 @@ namespace Api.Infra.Data
                 return;
             }
 
-            Empresa e1 = new Empresa
-            {
-                Id = 1,
-                Nome = "DB1",
-                Cnpj = "123456789",
-                DataFundacao = new DateTime(1992, 4, 21)
-            };
-
-            Empresa e2 = new Empresa
-            {
-                Id = 1,
-                Nome = "Softplan",
-                Cnpj = "123456789",
-                DataFundacao = new DateTime(1900, 9, 1)
-            };
+            Empresa e1 = new Empresa("DB1", "123456789");
+            Empresa e2 = new Empresa("Softplan", "987654321");
 
             _context.Empresa.AddRange(e1, e2);
 

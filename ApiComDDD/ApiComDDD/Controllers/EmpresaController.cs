@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Api.Domain.DTO;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
@@ -45,13 +47,18 @@ namespace Api.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Empresa empresa)
+        public async Task<IActionResult> Post([FromBody] EmpresaDTO empresaDTO)
         {
-            await _empresaService.AddAsync(empresa);
+            try
+            {
+                await _empresaService.AddEmpresaAsync(empresaDTO);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
-            return CreatedAtAction(
-                nameof(GetEmpresa),
-                new { id = empresa.Id }, empresa);
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPut("{id}")]
@@ -68,9 +75,11 @@ namespace Api.Application.Controllers
                 return NotFound();
             }
 
-            emp.Nome = empresa.Nome;
-            emp.Cnpj = empresa.Cnpj;
-            emp.DataFundacao = empresa.DataFundacao;
+            //emp.Nome = empresa.Nome;
+            //emp.Cnpj = empresa.Cnpj;
+            //emp.DataFundacao = empresa.DataFundacao;
+
+            //TODO: Criar método para alterar nome, outro para cnpj, blablabla
 
             await _empresaService.UpdateAsync(emp);
 
