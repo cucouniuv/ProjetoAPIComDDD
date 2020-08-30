@@ -13,6 +13,11 @@ namespace Api.Domain.Entities
 
         public List<Compra> ListaDeComprasDoCliente { get; private set; }
 
+        public Cliente(string nome)
+        {
+            Nome = nome;
+        }
+
         public Cliente(string nome, Endereco endereco)
         {
             Nome = nome;

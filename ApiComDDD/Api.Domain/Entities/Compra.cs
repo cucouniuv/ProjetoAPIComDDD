@@ -16,6 +16,8 @@ namespace Api.Domain.Entities
 
         public List<ProdutosDaCompra> ListaDeProdutosDaCompra { get; private set; }
 
+        public Compra() { }
+
         public Compra(DateTime data, Endereco endereco, List<ProdutosDaCompra> listaDeProdutosDaCompra)
         {
             Data = data;
@@ -26,6 +28,14 @@ namespace Api.Domain.Entities
         public double CalcularValorTotalDaCompra()
         {
             return 0;
+        }
+
+        public void AdicionarCodidoDaCompraNaListaDeProdutos(int codigo)
+        {
+            foreach(var x in ListaDeProdutosDaCompra)
+            {
+                x.AtualizarCodigoDaCompra(codigo);
+            }
         }
 
     }
