@@ -12,19 +12,17 @@
 
         public double Desconto { get; private set; }
 
+        public Compra Compra { get; private set; }
+
         public ProdutosDaCompra() { }
 
-        public ProdutosDaCompra(Produto produto, double preco, double desconto, int idDaCompra)
+        public ProdutosDaCompra(Produto produto, double preco, double desconto, Compra compra)
         {
             Produto = produto;
             Preco = preco;
             Desconto = desconto;
-            IdDaCompra = idDaCompra;
-        }
-
-        public void AtualizarCodigoDaCompra(int codigo)
-        {
-            IdDaCompra = codigo;
+            Compra = compra;
+            IdDaCompra = compra.Id;
         }
     }
 }

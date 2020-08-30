@@ -35,6 +35,19 @@ namespace Api.Application.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DadosDeUmaCompraDTO>> PegarCompraPorId(int id)
+        {
+            var dados = await _compraService.PegarDadosDeUmaCompraPorId(id);
+
+            if (dados == null)
+            {
+                return NotFound();
+            }
+
+            return dados;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AdicionarUmaCompraDTO adicionarUmaCompraDTO)
         {

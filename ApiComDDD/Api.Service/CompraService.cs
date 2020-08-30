@@ -13,11 +13,17 @@ namespace Api.Service
 
         private readonly IProdutoRepository _produtoRepository;
 
-        public CompraService(ICompraRepository compraRepository, IProdutoRepository produtoRepository)
+        private readonly IProdutosDaCompraRepository _produtosDaCompraRepository;
+
+        public CompraService(
+            ICompraRepository compraRepository, 
+            IProdutoRepository produtoRepository,
+            IProdutosDaCompraRepository produtosDaCompraRepository)
             : base(compraRepository)
         {
             _compraRepository = compraRepository;
             _produtoRepository = produtoRepository;
+            _produtosDaCompraRepository = produtosDaCompraRepository;
         }
 
         public async Task AdicionarUmaCompraAsync(AdicionarUmaCompraDTO obj)
@@ -29,6 +35,10 @@ namespace Api.Service
                 obj.CEPDeEntrega
                 );
 
+            Compra compra = new Compra(obj.DataDaCompra, endereco);
+            await _compraRepository.AddAsync(compra);
+
+
             List<ProdutosDaCompra> ListaDeProdutosDaCompra = new List<ProdutosDaCompra>();
 
             foreach (var x in obj.ListaDeProdutosDaCompra)
@@ -37,16 +47,31 @@ namespace Api.Service
 
                 //TODO: Ver como posso pegar o Id da compra
                 ProdutosDaCompra produtosDaCompra = 
-                    new ProdutosDaCompra(produto, x.Preco, x.Desconto, 0);
+                    new ProdutosDaCompra(produto, x.Preco, x.Desconto, compra);
 
                 ListaDeProdutosDaCompra.Add(produtosDaCompra);
-            } 
 
-            Compra compra = new Compra(obj.DataDaCompra, endereco, ListaDeProdutosDaCompra);
+                //TODO: muito errado
+                await _produtosDaCompraRepository.AddAsync(produtosDaCompra);
+            }
 
-            //compra.AdicionarCodidoDaCompraNaListaDeProdutos(compra.Id);
+            compra.AtribuirListaDeProdutosDaCompra(ListaDeProdutosDaCompra);
+            await _compraRepository.UpdateAsync(compra);
+        }
 
-            await _compraRepository.AddAsync(compra);
+        public async Task<DadosDeUmaCompraDTO> PegarDadosDeUmaCompraPorId(int id)
+        {
+            var dados = await _compraRepository.GetByIdAsync(id);
+
+            var dadosDTO = new DadosDeUmaCompraDTO
+            {
+                Id = dados.Id,
+                Data = dados.Data,
+                Endereco = dados.Endereco,
+                ListaDeProdutosDaCompra = dados.ListaDeProdutosDaCompra
+            };
+
+            return dadosDTO;
         }
     }
 }

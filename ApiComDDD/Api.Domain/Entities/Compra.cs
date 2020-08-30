@@ -18,11 +18,11 @@ namespace Api.Domain.Entities
 
         public Compra() { }
 
-        public Compra(DateTime data, Endereco endereco, List<ProdutosDaCompra> listaDeProdutosDaCompra)
+        public Compra(DateTime data, Endereco endereco)//, List<ProdutosDaCompra> listaDeProdutosDaCompra)
         {
             Data = data;
             Endereco = endereco;
-            ListaDeProdutosDaCompra = listaDeProdutosDaCompra;
+            //ListaDeProdutosDaCompra = listaDeProdutosDaCompra;
         }
 
         public double CalcularValorTotalDaCompra()
@@ -30,13 +30,9 @@ namespace Api.Domain.Entities
             return 0;
         }
 
-        public void AdicionarCodidoDaCompraNaListaDeProdutos(int codigo)
+        public void AtribuirListaDeProdutosDaCompra(List<ProdutosDaCompra> lista)
         {
-            foreach(var x in ListaDeProdutosDaCompra)
-            {
-                x.AtualizarCodigoDaCompra(codigo);
-            }
+            ListaDeProdutosDaCompra = lista;
         }
-
     }
 }
