@@ -26,6 +26,11 @@ namespace Api.Infra.Data.Repository
         public async Task AddAsync(TEntity obj)
         {
             await Db.Set<TEntity>().AddAsync(obj);
+            //Db.SaveChanges();
+        }
+
+        public void Save()
+        {
             Db.SaveChanges();
         }
 

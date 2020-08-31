@@ -7,12 +7,20 @@ namespace Api.Domain.DTO
 {
     public class DadosDeUmaCompraDTO
     {
-        public int Id { get; set; }
+        public int IdDaCompra { get; set; }
 
-        public DateTime Data { get; set; }
+        public DateTime DataDaCompra { get; set; }
 
-        public Endereco Endereco { get; set; }
+        public Endereco EnderecoDeEntrega { get; set; }
+
+        //public Cliente Cliente { get; set; }
+
+        public string NomeDoCliente { get; set; }
+
+        public Endereco EnderecoDoCliente { get; set; }
 
         public List<ProdutosDaCompra> ListaDeProdutosDaCompra { get; set; }
+
+        public double ValorTotalDaCompra { get; set; }
     }
 }

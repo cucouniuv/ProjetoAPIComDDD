@@ -17,5 +17,7 @@ namespace Api.Domain.Interfaces.Base
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task UpdateAsync(TEntity obj);
         Task RemoveAsync(TEntity obj);
+
+        void Save();
     }
 }

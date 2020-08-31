@@ -27,6 +27,11 @@ namespace ApiComDDD
 
             services.AddContextDependency();
             services.AddRepositoryDependency();
+
+            // System.Text.Json.JsonException: A possible object cycle was detected which is not supported
+            services.AddControllers()
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddServiceDependency();
             services.AddSwaggerDependency();
         }

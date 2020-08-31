@@ -42,10 +42,13 @@ namespace Api.Infra.Data
                 return;
 
             Endereco end1 = new Endereco("Rua Prof. Juvenal", "Cascavel", "PR", "88000000");
+            Endereco end2 = new Endereco("Rua da esquina", "Cascavel", "PR", "88000000");
 
             Cliente c1 = new Cliente("Agustinho", end1);
+            Cliente c2 = new Cliente("José", end1);
+            Cliente c3 = new Cliente("Maria", end2);
 
-            _context.Cliente.Add(c1);
+            _context.Cliente.AddRange(c1, c2, c3);
             _context.SaveChanges();
         }
 

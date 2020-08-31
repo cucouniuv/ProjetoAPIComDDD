@@ -15,19 +15,25 @@ namespace Api.Service
 
         private readonly IProdutosDaCompraRepository _produtosDaCompraRepository;
 
+        private readonly IClienteRepository _clienteRepository;
+
         public CompraService(
             ICompraRepository compraRepository, 
             IProdutoRepository produtoRepository,
-            IProdutosDaCompraRepository produtosDaCompraRepository)
+            IProdutosDaCompraRepository produtosDaCompraRepository,
+            IClienteRepository clienteRepository)
             : base(compraRepository)
         {
             _compraRepository = compraRepository;
             _produtoRepository = produtoRepository;
             _produtosDaCompraRepository = produtosDaCompraRepository;
+            _clienteRepository = clienteRepository;
         }
 
         public async Task AdicionarUmaCompraAsync(AdicionarUmaCompraDTO obj)
         {
+            Cliente cliente = _clienteRepository.GetById(obj.ClienteId);
+
             Endereco endereco = new Endereco(
                 obj.RuaDeEntrega, 
                 obj.CidadeDeEntrega,
@@ -35,9 +41,7 @@ namespace Api.Service
                 obj.CEPDeEntrega
                 );
 
-            Compra compra = new Compra(obj.DataDaCompra, endereco);
-            await _compraRepository.AddAsync(compra);
-
+            Compra compra = new Compra(obj.DataDaCompra, endereco, cliente);
 
             List<ProdutosDaCompra> ListaDeProdutosDaCompra = new List<ProdutosDaCompra>();
 
@@ -45,30 +49,46 @@ namespace Api.Service
             {
                 Produto produto = _produtoRepository.GetById(x.IdDoProduto);
 
-                //TODO: Ver como posso pegar o Id da compra
                 ProdutosDaCompra produtosDaCompra = 
                     new ProdutosDaCompra(produto, x.Preco, x.Desconto, compra);
 
                 ListaDeProdutosDaCompra.Add(produtosDaCompra);
 
-                //TODO: muito errado
+                //TODO: Buscar outra forma
                 await _produtosDaCompraRepository.AddAsync(produtosDaCompra);
             }
 
             compra.AtribuirListaDeProdutosDaCompra(ListaDeProdutosDaCompra);
-            await _compraRepository.UpdateAsync(compra);
+
+            await _compraRepository.AddAsync(compra);
+            _compraRepository.Save();
         }
 
         public async Task<DadosDeUmaCompraDTO> PegarDadosDeUmaCompraPorId(int id)
         {
-            var dados = await _compraRepository.GetByIdAsync(id);
+            var compra = await _compraRepository.GetByIdAsync(id);
+
+            var listaProdutosDaCompra = 
+                await _produtosDaCompraRepository.ConsultarProdutosDaCompraAsync(compra.Id);
+
+            //TODO: Devo atribuir produtosDaCompra com compra?
+
+            compra.AtribuirListaDeProdutosDaCompra(listaProdutosDaCompra);
+            double valorTotalDaCompra = compra.CalcularValorTotalDaCompra();
+
+            //TODO: Fazer validações 
+
+            var cliente = await _clienteRepository.GetByIdAsync(compra.ClienteId);
 
             var dadosDTO = new DadosDeUmaCompraDTO
             {
-                Id = dados.Id,
-                Data = dados.Data,
-                Endereco = dados.Endereco,
-                ListaDeProdutosDaCompra = dados.ListaDeProdutosDaCompra
+                IdDaCompra = compra.Id,
+                DataDaCompra = compra.Data,
+                EnderecoDeEntrega = compra.Endereco,
+                ListaDeProdutosDaCompra = compra.ListaDeProdutosDaCompra,
+                NomeDoCliente = cliente.Nome,
+                EnderecoDoCliente = cliente.Endereco,
+                ValorTotalDaCompra = valorTotalDaCompra
             };
 
             return dadosDTO;

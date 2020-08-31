@@ -7,6 +7,7 @@ namespace Api.Domain.DTO
 {
     public class AdicionarUmaCompraDTO
     {
+        public int ClienteId { get; set; }
         public DateTime DataDaCompra { get; set; }
 
         public string RuaDeEntrega { get; set; }
