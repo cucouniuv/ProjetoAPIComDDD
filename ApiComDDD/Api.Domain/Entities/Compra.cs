@@ -37,16 +37,14 @@ namespace Api.Domain.Entities
             if (ListaDeProdutosDaCompra.Count == 0)
                 return 0;
 
-            //TODO: Cliente novo tem direito em 15% de desconto na primeira compra
-            // Se tiver relacionamento de >= 1 ano, ganha 5% sempre
-
-            //Pegar a data da compra mais antiga do cliente e comparar com a data atual
-            // se for maior/igual que 1 ano = 5%
-
-            return ListaDeProdutosDaCompra
+            double percentualDesconto = Cliente.CalcularPercentualDeDesconto();
+            
+            double valorTotalDaListaDeProdutos = ListaDeProdutosDaCompra
                 .Where(x => x.CompraId == Id)
                 .Select(x => x.Preco - x.Desconto)
                 .Sum();
+
+            return (valorTotalDaListaDeProdutos - (percentualDesconto * valorTotalDaListaDeProdutos));
         }
 
         public void AtribuirListaDeProdutosDaCompra(List<ProdutosDaCompra> lista)

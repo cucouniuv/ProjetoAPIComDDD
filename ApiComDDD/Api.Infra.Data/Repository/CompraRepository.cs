@@ -20,6 +20,7 @@ namespace Api.Infra.Data.Repository
                 .Include(compra => compra.ListaDeProdutosDaCompra)
                 .Include(compra => compra.Cliente)
                     .ThenInclude(cliente => cliente.Endereco)
+                .Include(compra => compra.Cliente.ListaDeComprasDoCliente)
                 .Where(compra => compra.Id == id)
                 .FirstOrDefaultAsync();
         }

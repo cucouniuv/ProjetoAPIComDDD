@@ -21,6 +21,10 @@ namespace Api.Infra.Data.Context
             modelBuilder.Entity<Cliente>().OwnsOne(
                 o => o.Endereco);
 
+            modelBuilder.Entity<Cliente>().HasMany(
+                o => o.ListaDeComprasDoCliente).WithOne(o => o.Cliente);
+
+
             modelBuilder.Entity<Compra>().OwnsOne(
                 o => o.Endereco);
 
@@ -29,6 +33,7 @@ namespace Api.Infra.Data.Context
 
             modelBuilder.Entity<Compra>().HasOne(
                 o => o.Cliente).WithOne();
+
 
             modelBuilder.Entity<ProdutosDaCompra>().HasOne(
                 o => o.Produto).WithOne(); // conferir

@@ -1,5 +1,7 @@
 ﻿using Api.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Domain.Entities
 {
@@ -26,6 +28,14 @@ namespace Api.Domain.Entities
 
         public double CalcularPercentualDeDesconto()
         {
+            //TODO: Lista sempre vem null
+            if ((ListaDeComprasDoCliente == null) || (ListaDeComprasDoCliente.Count <= 0))
+                return 0.15;
+
+             if (ListaDeComprasDoCliente
+                .Any(lista => (lista.Data.Year - DateTime.Now.Year) >= 1))
+                    return 0.05;
+
             return 0;
         }
     }
