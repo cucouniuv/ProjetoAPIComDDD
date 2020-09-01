@@ -20,13 +20,26 @@ namespace Api.Infra.Data.Repository
         public void Add(TEntity obj)
         {
             Db.Set<TEntity>().Add(obj);
-            Db.SaveChanges();
         }
 
-        public async Task AddAsync(TEntity obj)
+        public IEnumerable<TEntity> GetAll()
         {
-            await Db.Set<TEntity>().AddAsync(obj);
-            //Db.SaveChanges();
+            return Db.Set<TEntity>().ToList();
+        }
+
+        public TEntity GetById(int id)
+        {
+            return Db.Set<TEntity>().Find(id);
+        }
+
+        public void Update(TEntity obj)
+        {
+            Db.Entry(obj).State = EntityState.Modified;
+        }
+
+        public void Remove(TEntity obj)
+        {
+            Db.Set<TEntity>().Remove(obj);
         }
 
         public void Save()
@@ -39,19 +52,15 @@ namespace Api.Infra.Data.Repository
             //throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            return Db.Set<TEntity>().ToList();
-        }
+        // Async 
 
+        public async Task AddAsync(TEntity obj)
+        {
+            await Db.Set<TEntity>().AddAsync(obj);
+        }
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await Db.Set<TEntity>().ToListAsync();
-        }
-
-        public TEntity GetById(int id)
-        {
-            return Db.Set<TEntity>().Find(id);
         }
 
         public async Task<TEntity> GetByIdAsync(int id)
@@ -59,27 +68,8 @@ namespace Api.Infra.Data.Repository
             return await Db.Set<TEntity>().FindAsync(id);
         }
 
-        public void Remove(TEntity obj)
+        public async void SaveAsync()
         {
-            Db.Set<TEntity>().Remove(obj);
-            Db.SaveChanges();
-        }
-
-        public async Task RemoveAsync(TEntity obj)
-        {
-            Db.Set<TEntity>().Remove(obj);
-            await Db.SaveChangesAsync();
-        }
-
-        public void Update(TEntity obj)
-        {
-            Db.Entry(obj).State = EntityState.Modified;
-            Db.SaveChanges();
-        }
-
-        public async Task UpdateAsync(TEntity obj)
-        {
-            Db.Entry(obj).State = EntityState.Modified;
             await Db.SaveChangesAsync();
         }
     }

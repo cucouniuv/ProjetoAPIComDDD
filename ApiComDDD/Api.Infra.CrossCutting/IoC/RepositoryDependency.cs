@@ -8,8 +8,6 @@ namespace Api.Infra.CrossCutting.IoC
     {
         public static void AddRepositoryDependency(this IServiceCollection services)
         {
-            services.AddScoped<IEmpresaRepository, EmpresaRepository>();
-
             services.AddScoped<ICompraRepository, CompraRepository>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();

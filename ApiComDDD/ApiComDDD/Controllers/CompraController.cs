@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Api.Domain.DTO;
-using Api.Domain.Entities;
 using Api.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,6 +59,5 @@ namespace Api.Application.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
         }
-
     }
 }

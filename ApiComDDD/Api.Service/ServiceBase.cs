@@ -55,9 +55,14 @@ namespace Api.Service
             _repository.Remove(obj);
         }
 
-        public async Task RemoveAsync(TEntity obj)
+        public void Save()
         {
-            await _repository.RemoveAsync(obj);
+            _repository.Save();
+        }
+
+        public void SaveAsync()
+        {
+            _repository.SaveAsync();
         }
 
         public void Update(TEntity obj)
@@ -65,9 +70,5 @@ namespace Api.Service
             _repository.Update(obj);
         }
 
-        public async Task UpdateAsync(TEntity obj)
-        {
-            await _repository.UpdateAsync(obj);
-        }
     }
 }

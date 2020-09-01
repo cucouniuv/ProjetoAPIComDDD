@@ -16,7 +16,6 @@ namespace Api.Infra.Data
 
         public void Seed()
         {
-            SeedEmpresa();
             SeedCliente();
             SeedProduto();
         }
@@ -49,18 +48,6 @@ namespace Api.Infra.Data
             Cliente c3 = new Cliente("Maria", end2);
 
             _context.Cliente.AddRange(c1, c2, c3);
-            _context.SaveChanges();
-        }
-
-        private void SeedEmpresa()
-        {
-            if (_context.Empresa.Any())
-                return;
-
-            Empresa e1 = new Empresa("DB1", "123456789");
-            Empresa e2 = new Empresa("Softplan", "987654321");
-
-            _context.Empresa.AddRange(e1, e2);
             _context.SaveChanges();
         }
     }

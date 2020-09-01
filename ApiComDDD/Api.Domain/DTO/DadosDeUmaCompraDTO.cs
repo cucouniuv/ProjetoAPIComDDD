@@ -13,8 +13,6 @@ namespace Api.Domain.DTO
 
         public Endereco EnderecoDeEntrega { get; set; }
 
-        //public Cliente Cliente { get; set; }
-
         public string NomeDoCliente { get; set; }
 
         public Endereco EnderecoDoCliente { get; set; }

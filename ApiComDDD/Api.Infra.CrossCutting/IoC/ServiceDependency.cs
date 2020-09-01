@@ -8,8 +8,6 @@ namespace Api.Infra.CrossCutting.IoC
     {
         public static void AddServiceDependency(this IServiceCollection services)
         {
-            services.AddScoped<IEmpresaService, EmpresaService>();
-
             services.AddScoped<ICompraService, CompraService>();
 
             services.AddScoped<IClienteService, ClienteService>();
