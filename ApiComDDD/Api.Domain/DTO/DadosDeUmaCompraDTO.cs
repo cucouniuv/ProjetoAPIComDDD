@@ -17,8 +17,8 @@ namespace Api.Domain.DTO
 
         public Endereco EnderecoDoCliente { get; set; }
 
-        public List<ProdutosDaCompra> ListaDeProdutosDaCompra { get; set; }
-
         public double ValorTotalDaCompra { get; set; }
+
+        public List<ProdutosDaCompra> ListaDeProdutosDaCompra { get; set; }
     }
 }

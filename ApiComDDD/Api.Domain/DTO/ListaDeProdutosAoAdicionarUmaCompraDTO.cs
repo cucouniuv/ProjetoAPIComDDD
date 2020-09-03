@@ -7,5 +7,7 @@
         public double Preco { get; set; }
 
         public double Desconto { get; set; }
+
+        public double Quantidade { get; set; }
     }
 }

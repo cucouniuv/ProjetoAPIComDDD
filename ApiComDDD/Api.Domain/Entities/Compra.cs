@@ -41,7 +41,7 @@ namespace Api.Domain.Entities
             
             double valorTotalDaListaDeProdutos = ListaDeProdutosDaCompra
                 .Where(x => x.CompraId == Id)
-                .Select(x => x.Preco - x.Desconto)
+                .Select(x => (x.Preco - x.Desconto) * x.Quantidade)
                 .Sum();
 
             return (valorTotalDaListaDeProdutos - (percentualDesconto * valorTotalDaListaDeProdutos));

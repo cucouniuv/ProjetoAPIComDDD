@@ -15,6 +15,8 @@ namespace Api.Domain.Entities
         public double Preco { get; private set; }
         public double Desconto { get; private set; }
 
+        public double Quantidade { get; private set; }
+
         [ForeignKey("Compra")]
         public int CompraId { get; private set; }
         public Compra Compra { get; private set; }
@@ -27,11 +29,12 @@ namespace Api.Domain.Entities
          */
         public ProdutosDaCompra() { }
 
-        public ProdutosDaCompra(Produto produto, double preco, double desconto, Compra compra)
+        public ProdutosDaCompra(Produto produto, double preco, double desconto, double quantidade, Compra compra)
         {
             Produto = produto;
             Preco = preco;
             Desconto = desconto;
+            Quantidade = quantidade;
             Compra = compra;
         }
     }

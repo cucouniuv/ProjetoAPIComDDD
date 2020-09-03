@@ -46,7 +46,7 @@ namespace Api.Service
                 Produto produto = await _produtoRepository.GetByIdAsync(x.IdDoProduto);
 
                 ProdutosDaCompra produtosDaCompra = 
-                    new ProdutosDaCompra(produto, x.Preco, x.Desconto, compra);
+                    new ProdutosDaCompra(produto, x.Preco, x.Desconto, x.Quantidade, compra);
 
                 listaDeProdutosDaCompra.Add(produtosDaCompra);
             }
@@ -59,22 +59,8 @@ namespace Api.Service
         {
             //TODO: Fazer validações
 
-            var compra = await _compraRepository.ConsultarCompraComProdutosAsync(id);
-
-            double valorTotalDaCompra = compra.CalcularValorTotalDaCompra();
-
-            var dadosDTO = new DadosDeUmaCompraDTO
-            {
-                IdDaCompra = compra.Id,
-                DataDaCompra = compra.Data,
-                EnderecoDeEntrega = compra.Endereco,
-                ListaDeProdutosDaCompra = compra.ListaDeProdutosDaCompra,
-                NomeDoCliente = compra.Cliente.Nome,
-                EnderecoDoCliente = compra.Cliente.Endereco,
-                ValorTotalDaCompra = valorTotalDaCompra
-            };
-
-            return dadosDTO;
+            var compraDTO = await _compraRepository.ConsultarDadosDeUmaCompra(id);
+            return compraDTO;
         }
     }
 }

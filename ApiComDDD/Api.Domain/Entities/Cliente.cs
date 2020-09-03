@@ -28,7 +28,7 @@ namespace Api.Domain.Entities
 
         public double CalcularPercentualDeDesconto()
         {
-            //TODO: Lista sempre vem null
+            //TODO: Errado a lógica de como pegar o percentual da primeira compra
             if ((ListaDeComprasDoCliente == null) || (ListaDeComprasDoCliente.Count <= 0))
                 return 0.15;
 
