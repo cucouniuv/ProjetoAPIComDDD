@@ -26,15 +26,20 @@ namespace Api.Domain.Entities
             Endereco = endereco;
         }
 
-        public double CalcularPercentualDeDesconto()
+        public double CalcularPercentualDeDesconto(int compraId)
         {
-            //TODO: Errado a lógica de como pegar o percentual da primeira compra
             if ((ListaDeComprasDoCliente == null) || (ListaDeComprasDoCliente.Count <= 0))
                 return 0.15;
 
-             if (ListaDeComprasDoCliente
-                .Any(lista => (lista.Data.Year - DateTime.Now.Year) >= 1))
-                    return 0.05;
+            bool existeCompraAnterior = ListaDeComprasDoCliente.Any(lista => lista.Id < compraId);
+            if (!existeCompraAnterior)
+                return 0.15;
+
+            bool existeCompraComUmAnoOuMais =
+                ListaDeComprasDoCliente.Any(lista => (DateTime.Now.Year - lista.Data.Year) >= 1);
+            
+            if (existeCompraComUmAnoOuMais)
+                return 0.05;
 
             return 0;
         }

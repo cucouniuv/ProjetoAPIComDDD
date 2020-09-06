@@ -1,7 +1,7 @@
 ﻿using Api.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+//using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging.Console;
 
 namespace Api.Infra.Data.Context
 {
@@ -60,12 +60,9 @@ namespace Api.Infra.Data.Context
             modelBuilder.Entity<Compra>().HasMany(
                 o => o.ListaDeProdutosDaCompra).WithOne(o => o.Compra);
 
-           // modelBuilder.Entity<Compra>().HasOne(
-           //     o => o.Cliente).WithOne();
-
 
             modelBuilder.Entity<ProdutosDaCompra>().HasOne(
-                o => o.Produto).WithOne(); // conferir
+                o => o.Produto).WithOne();
         }
 
     }

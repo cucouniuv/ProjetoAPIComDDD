@@ -37,7 +37,7 @@ namespace Api.Domain.Entities
             if (ListaDeProdutosDaCompra.Count == 0)
                 return 0;
 
-            double percentualDesconto = Cliente.CalcularPercentualDeDesconto();
+            double percentualDesconto = Cliente.CalcularPercentualDeDesconto(Id);
             
             double valorTotalDaListaDeProdutos = ListaDeProdutosDaCompra
                 .Where(x => x.CompraId == Id)

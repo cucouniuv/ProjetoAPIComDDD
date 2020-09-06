@@ -16,7 +16,7 @@ namespace Api.Infra.Data.Repository
 
         public async Task<Compra> ConsultarCompraComProdutosAsync(int id)
         {
-            //TODO: Fazer filtro para não fazer select *
+            // Não utilizado mais, só como exemplo
             return await Db.Set<Compra>()
                 .Include(compra => compra.ListaDeProdutosDaCompra)
                     .ThenInclude(listaProduto => listaProduto.Produto)
