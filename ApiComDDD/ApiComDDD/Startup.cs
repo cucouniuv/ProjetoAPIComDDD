@@ -1,5 +1,4 @@
 using Api.Infra.CrossCutting.IoC;
-using Api.Infra.Data;
 using Api.Infra.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,20 +19,16 @@ namespace ApiComDDD
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddContextDependency();
+            services.AddRepositoryDependency();
+            services.AddNewtonsoftJsonDependency();
+            services.AddServiceDependency();
+            services.AddSwaggerDependency();
+
             services.AddMvc(config =>
             {
                 config.EnableEndpointRouting = false;
             });
-
-            services.AddContextDependency();
-            services.AddRepositoryDependency();
-
-            // System.Text.Json.JsonException: A possible object cycle was detected which is not supported
-            services.AddControllers()
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            services.AddServiceDependency();
-            services.AddSwaggerDependency();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,17 +39,9 @@ namespace ApiComDDD
 
                 Api.Infra.Data.Startup.Seed<ContextInMemory>(app);
             }
-
-            /*app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });*/
-
-            app.UseMvc();
+            
             app.UseSwaggerDependency();
+            app.UseMvc();
         }
     }
 }

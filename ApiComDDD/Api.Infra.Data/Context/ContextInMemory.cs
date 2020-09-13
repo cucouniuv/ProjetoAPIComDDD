@@ -46,6 +46,8 @@ namespace Api.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Cliente>().Ignore(e => e.Valid);
+
             // Feito para os objetos de valor que não possuem Id
             modelBuilder.Entity<Cliente>().OwnsOne(
                 o => o.Endereco);

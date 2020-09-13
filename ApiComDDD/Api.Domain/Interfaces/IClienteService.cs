@@ -6,6 +6,6 @@ namespace Api.Domain.Interfaces
 {
     public interface IClienteService : IServiceBase<Cliente>
     {
-        //Task AddEmpresaAsync(EmpresaDTO obj);
+        Task AdicionarClienteAsync(AdicionarUmClienteDTO obj);
     }
 }

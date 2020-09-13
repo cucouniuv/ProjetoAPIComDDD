@@ -12,9 +12,9 @@ public static class SwaggerDependency
             c.SwaggerDoc("v1",
                 new OpenApiInfo
                 {
-                    Title = "Olivetti API",
+                    Title = "Projeto Mentoria API",
                     Version = "v1",
-                    Description = "API REST created on ASP.NET Core 3.1",
+                    Description = "API REST criada com ASP.NET Core 3.1",
                 });
         });
     }
@@ -24,8 +24,8 @@ public static class SwaggerDependency
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Olivetti API");
-            c.DocumentTitle = "Olivetti API";
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Projeto Mentoria API");
+            c.DocumentTitle = "Projeto Mentoria API";
             c.DocExpansion(DocExpansion.List);
         });
     }

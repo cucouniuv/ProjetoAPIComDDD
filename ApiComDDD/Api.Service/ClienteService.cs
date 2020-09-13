@@ -1,6 +1,7 @@
 ﻿using Api.Domain.DTO;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Domain.ValueObjects;
 using System.Threading.Tasks;
 
 namespace Api.Service
@@ -15,11 +16,27 @@ namespace Api.Service
             _clienteRepository = clienteRepository;
         }
 
-        /*public async Task AddEmpresaAsync(EmpresaDTO obj)
+        public async Task AdicionarClienteAsync(AdicionarUmClienteDTO obj)
         {
-            Empresa emp = new Empresa(obj.Nome, obj.Cnpj);
+            Endereco endereco = new Endereco(
+                obj.Rua,
+                obj.Cidade,
+                obj.Estado,
+                obj.CEP
+            );
 
-            await _compraRepository.AddAsync(emp);
-        }*/
+            Cliente cliente = new Cliente(obj.NomeDoCliente, endereco);
+            
+            if (cliente.Invalid)
+            {
+                //TODO: Arrumar como pegar a validação do Fluent
+                throw new System.Exception(cliente.ValidationResult.RuleSetsExecuted.ToString());
+            }
+
+            await _clienteRepository.AddAsync(cliente);
+
+            _clienteRepository.SaveAsync();
+        }
+
     }
 }

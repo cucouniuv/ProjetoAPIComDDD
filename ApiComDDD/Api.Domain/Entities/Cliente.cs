@@ -1,4 +1,5 @@
-﻿using Api.Domain.ValueObjects;
+﻿using Api.Domain.Entities.Validation;
+using Api.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace Api.Domain.Entities
         {
             Nome = nome;
             Endereco = endereco;
+
+            Validar(this, new ClienteValidador());
         }
 
         public double CalcularPercentualDeDesconto(int compraId)
