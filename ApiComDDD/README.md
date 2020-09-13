@@ -73,4 +73,13 @@ Resultado esperado ao realizar o GET: `"valorTotalDaCompra": 68`, pois a regra �
 Resultado esperado ao realizar o GET: `"valorTotalDaCompra": 76`, pois a regra é 5% de desconto na compra quando o cliente já fez compras há mais de um ano.
 
 # Criado com
-Microsoft Visual Studio Community 2019
+
+* Microsoft Visual Studio Community 2019
+* Entity Framework Core
+* Entity Framework Core In Memory
+* NewtonsoftJson
+* OpenAPI
+* Swagger
+
+
+
