@@ -44,7 +44,7 @@ namespace Api.Infra.Data.Repository
                     DataDaCompra = campos.Data,
                     EnderecoDeEntrega = campos.Endereco,
                     NomeDoCliente = campos.Cliente.Nome,
-                    EnderecoDoCliente = campos.Endereco,
+                    EnderecoDoCliente = campos.Cliente.Endereco,
                     ListaDeProdutosDaCompra = campos.ListaDeProdutosDaCompra,
                     ValorTotalDaCompra = campos.CalcularValorTotalDaCompra()
                 })
