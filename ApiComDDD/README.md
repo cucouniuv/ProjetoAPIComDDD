@@ -80,6 +80,3 @@ Resultado esperado ao realizar o GET: `"valorTotalDaCompra": 76`, pois a regra Ã
 * NewtonsoftJson
 * OpenAPI
 * Swagger
-
-
-
